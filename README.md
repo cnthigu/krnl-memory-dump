@@ -4,7 +4,7 @@
 
 ## How it works
 
-A kernel driver and a user-space app work together. You provide a process ID and module name (e.g. `notepad.exe`, `ntdll.dll`). The driver attaches to the target process, locates the module, and copies its memory. The app writes the result to `processdumpcnt.bin` and adjusts the PE headers for IDA Pro or Ghidra.
+You send a process ID and module name to the driver. It dumps the module's memory and returns it. The app saves to `processdumpcnt.bin` and fixes the PE headers.
 
 ## What it does
 
