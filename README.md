@@ -1,12 +1,16 @@
 # Windows Kernel Memory Dump
 
-Read process memory from kernel mode by dumping loaded modules
+*read process memory from kernel*
 
-## How does it work?
+## How it works
 
-This project demonstrates cross-process memory reading by exposing IOCTLs from a kernel driver. A user-mode application sends the target process ID and module name (e.g. `notepad.exe`, `ntdll.dll`), and the driver returns the module's memory or its size.
+A kernel driver and a user-space app work together. You provide a process ID and module name (e.g. `notepad.exe`, `ntdll.dll`). The driver attaches to the target process, locates the module, and copies its memory. The app writes the result to `processdumpcnt.bin` and adjusts the PE headers for IDA Pro or Ghidra.
 
-The user-mode app saves the dump to `processdumpcnt.bin` and automatically corrects the PE headers.
+## What it does
+
+- Dumps a selected module from a running process
+- Uses `DeviceIoControl` to communicate with the driver
+- Fixes PE headers for reverse engineering tools
 
 ## Demo
 
@@ -14,7 +18,7 @@ The user-mode app saves the dump to `processdumpcnt.bin` and automatically corre
 
 ## Loading the driver
 
-- **Option 1** — Test Mode
+- **Option 1** — Test Mode (`sc create` / `sc start`)
 - **Option 2** — [KDMapper](https://github.com/TheCruZ/kdmapper)
 
 ---
