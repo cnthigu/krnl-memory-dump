@@ -1,16 +1,10 @@
 # Windows Kernel Memory Dump
 
-*read process memory from kernel*
+*dump process modules from kernel*
 
 ## How it works
 
-You send a process ID and module name to the driver. It dumps the module's memory and returns it. The app saves to `processdumpcnt.bin` and fixes the PE headers.
-
-## What it does
-
-- Dumps a selected module from a running process
-- Uses `DeviceIoControl` to communicate with the driver
-- Fixes PE headers for reverse engineering tools
+You send a process ID and module name (e.g. `notepad.exe`, `ntdll.dll`) to the driver via `DeviceIoControl`. The driver dumps the module's memory and returns it. The app saves to `processdumpcnt.bin` and fixes the PE headers.
 
 ## Demo
 
